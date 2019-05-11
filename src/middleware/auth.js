@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
         if (req.cookies['x-hp'] === undefined || req.cookies['x-s'] === undefined || !req.xhr) {
             res.clearCookie('x-hp', { path: '/' })
             res.clearCookie('x-s', { path: '/' })
-            throw new Error('You need to be authentified to perform this action.')
+            throw new Error('You need to be authenticated to perform this action.')
         }
 
         // Build of token from cookies
@@ -32,7 +32,7 @@ const auth = async (req, res, next) => {
         if (!user) {
             res.clearCookie('x-hp', { path: '/' })
             res.clearCookie('x-s', { path: '/' })
-            throw new Error('You need to be authentified to perform this action.')
+            throw new Error('You need to be authenticated to perform this action.')
         }
 
         // Check if token is valid server-side

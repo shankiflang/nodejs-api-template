@@ -23,10 +23,9 @@ router.post('/auth/register', async (req, res) => {
         await user.save()
         const token = await user.generateAuthToken(res)
 
-        res.status(201).send({ succes: true, user, token })
+        res.status(201).send({ success: true, user, token })
     } catch (e) {
         const error = e.message
-
         res.status(400).send({ success: false, error })
     }
 })
@@ -60,7 +59,6 @@ router.post('/auth/login', async (req, res) => {
         res.status(201).send({ success: true, user, token })
     } catch (e) {
         const error = e.message
-
         res.status(400).send({ success: false, error })
     }
 })
@@ -71,7 +69,6 @@ router.get('/auth/fetch', auth, async (req, res) => {
         res.send({ success: true, user: req.user, token: req.token })
     } catch (e) {
         const error = e.message
-
         res.status(400).send({ success: false, error })
     }
 })
