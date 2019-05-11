@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
 
         // Verify token
         const verifyOptions = {
-            expiresIn: "2 hours",
+            expiresIn: "7 days",
             algorithm: ["RS256"]
         }
         const PUBLIC_KEY = process.env.PUBLIC_KEY.replace(/\\n/g, '\n')
@@ -54,8 +54,9 @@ const auth = async (req, res, next) => {
         }
 
         // Regenerate token expire time
-        res.cookie('x-hp', req.cookies['x-hp'], { sameSite: true, httpOnly: false, secure: false, maxAge: 1000 * 60 * 30 })
+        res.cookie('x-hp', req.cookies['x-hp'], { sameSite: true, httpOnly: false, secure: false, maxAge: 1000 * 60 * 60 * 2 })
 
+        req.random = decoded.random
         req.token = token
         req.user = user
 

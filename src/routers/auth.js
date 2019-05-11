@@ -23,11 +23,11 @@ router.post('/auth/register', async (req, res) => {
         await user.save()
         const token = await user.generateAuthToken(res)
 
-        res.status(201).send({ user })
+        res.status(201).send({ succes: true, user, token })
     } catch (e) {
         const error = e.message
 
-        res.status(400).send({ success: true, user, token })
+        res.status(400).send({ success: false, error })
     }
 })
 
@@ -61,7 +61,7 @@ router.post('/auth/login', async (req, res) => {
     } catch (e) {
         const error = e.message
 
-        res.status(400).send({ error })
+        res.status(400).send({ success: false, error })
     }
 })
 
@@ -72,18 +72,30 @@ router.get('/auth/fetch', auth, async (req, res) => {
     } catch (e) {
         const error = e.message
 
-        res.status(400).send({ error })
+        res.status(400).send({ success: false, error })
     }
 })
 
 // Logout user
-router.post('/auth/logout', async (req, res) => {
+router.get('/auth/logout', auth, async (req, res) => {
     try {
+        // Clear cookies
+        res.clearCookie('x-hp', { path: '/' })
+        res.clearCookie('x-s', { path: '/' })
 
+        // Clear token in bdd
+        let tokens = req.user.tokens.filter((token => !bcrypt.compareSync(req.random, token.token)))
+        req.user.tokens = tokens
+        await req.user.save()
+
+        res.send({ success: true })
     } catch (e) {
-        const error = e.message
+        // Clear cookies
+        res.clearCookie('x-hp', { path: '/' })
+        res.clearCookie('x-s', { path: '/' })
 
-        res.status(400).send({ error })
+        const error = e.message
+        res.status(400).send({ success: true, error })
     }
 })
 

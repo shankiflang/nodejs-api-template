@@ -81,7 +81,7 @@ userSchema.methods.generateAuthToken = async function (res) {
 
     // Generating token
     const signOptions = {
-        expiresIn: "2 hours",
+        expiresIn: "7 days",
         algorithm: "RS256"
     }
 
@@ -102,7 +102,7 @@ userSchema.methods.generateAuthToken = async function (res) {
     const tokenSignature = splitToken[2]
 
     // Generate cookies
-    res.cookie('x-hp', tokenPayload, { sameSite: true, httpOnly: false, secure: false, maxAge: 1000 * 60 * 30 })
+    res.cookie('x-hp', tokenPayload, { sameSite: true, httpOnly: false, secure: false, maxAge: 1000 * 60 * 60 * 2 })
     res.cookie('x-s', tokenSignature, { sameSite: true, httpOnly: true, secure: false })
 
     // Return token
