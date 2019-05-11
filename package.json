@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-api-template",
+  "version": "1.0.0",
+  "description": "```\r npm install\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zKolait/nodejs-api-template.git"
+  },
+  "author": "Nicolas Chapeau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zKolait/nodejs-api-template/issues"
+  },
+  "homepage": "https://github.com/zKolait/nodejs-api-template#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "env-cmd": "^8.0.2",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.7",
+    "validator": "^10.11.0"
+  }
+}
