@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         type: String,
         trim: true,
+        lowercase: true,
         validate (value) {
             if (!validator.isAlphanumeric(value)) {
                 throw new Error('Username is invalid.')
